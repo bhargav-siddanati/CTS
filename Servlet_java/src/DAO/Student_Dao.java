@@ -5,7 +5,7 @@ import Model.Student;
 
 public interface Student_Dao {
 	boolean insertData(Student std);
-	void deleteData(String id);
-	void updateData(String id);
+	boolean deleteData(String id);
+	boolean updateData(String id);
 	List<Student> getData();
 }

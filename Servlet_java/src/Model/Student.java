@@ -5,6 +5,11 @@ public class Student {
 	private String stdName;
 	private String stdBranch;
 	
+	
+	
+	public Student() {
+		super();
+	}
 	public String getStdId() {
 		return stdId;
 	}

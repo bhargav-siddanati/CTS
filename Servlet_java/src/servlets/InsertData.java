@@ -37,11 +37,9 @@ public class InsertData extends HttpServlet {
 		std1.setStdId(id);
 		std1.setStdName(name);
 		std1.setStdBranch(branch);
-		
-		if(std.insertData(std1))
+		boolean b = std.insertData(std1);
+		if(b)
 			pw.println("Inserted");
-		else
-			pw.println("Not Inserted");
 		
 	}
 

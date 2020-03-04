@@ -34,12 +34,9 @@ public class Getdata extends HttpServlet {
 		pw.print("<table border='1' width='100%'");
 		pw.print("<tr> <th>ID</th> <th>Name</th> <th>Branch</th> <th>Operations</th> </tr>");	
 		List<Student> list = std.getData();
-		list.forEach(s -> pw.println("<tr> <td>"+s.getStdId()+"</td> <td>"+s.getStdName()+"</td> <td>"+s.getStdBranch()+"</td>  <td><a href='UpdateFDate?id='"+s.getStdId()+"'>edit</a>  "+"  "+" <a href='DeleteData?id='"+s.getStdId()+"'>Delete</a> </td></tr>"));
+		list.forEach(s -> System.out.println("<tr> <td>"+s.getStdId()+"</td> <td>"+s.getStdName()+"</td> <td>"+s.getStdBranch()+"</td>  <td><a href='UpdatePage.jsp'>edit</a>"+"  "+"<a href='Delete.jsp'></a> </td></tr>"));
 //		ut.print("<tr><td>"+e.getId()+"</td><td>"+e.getName()+"</td><td>"+e.getPassword()+"</td> <td>"+e.getEmail()+"</td><td>"+e.getCountry()+"</td><td><a href='EditServlet?id="+e.getId()+"'>edit</a></td> <td><a href='DeleteServlet?id="+e.getId()+"'>delete</a></td></tr>");
-		pw.print("</table><br><br>");
-		
-		pw.println("<a href = 'RegisterPage.jsp'>Insert</a>");
-		
+		pw.print("</table>");
 		pw.close();
 	}
 

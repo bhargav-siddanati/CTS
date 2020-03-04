@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import DAO.Student_Dao;
 import DAOImplement.Student_Implement;
+import Model.Student;
 
 
 @WebServlet("/UpdateData")
@@ -28,15 +29,18 @@ public class UpdateData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
-		
-		String st = request.getParameter("id");
-		
-		if(std.updateData(st))
+		pw = response.getWriter();
+		Student s = new Student();
+		s.setStdId(request.getParameter("ids"));
+		s.setStdName(request.getParameter("sname"));
+		s.setStdBranch(request.getParameter("branch"));
+//		pw.println("kk" + s.getStdId() + s.getStdBranch() + s.getStdName());
+		if(std.updateData(s))
 			pw.println("Inserted");
 		else
 			pw.println("Not Inserted");
 		
-		response.sendRedirect("GetAllDetailsPage.jsp");
+//		response.sendRedirect("GetAllDetailsPage.jsp");
 		
 	}
 

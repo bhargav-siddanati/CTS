@@ -7,14 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Register Form</h1>
-	<form action="InsertData" method="post">
-		<label>Student Id: </label> <input type="text" name="id" pattern="[0-9A-Z]{10}" placeholder="12A34B5678" required/><br><br>
+	<form action="UpdateData" method="get">
+		<label>Student Id: </label> <input type="text" value=<%=request.getParameter("id") %> name="ids" /><br><br>
 		<label>Student Name: </label> <input type="text" name="sname" placeholder="Name" /><br><br>
 		<label>Student Branch: </label> <input type="text" name="branch" placeholder="CSE" /><br><br>
 		<input type="submit" name="insert" />
 	</form>
-	<br>
-	<a href="GetAllDetailsPage.jsp">Get All Details of Students</a>
 </body>
 </html>

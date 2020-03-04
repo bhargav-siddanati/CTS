@@ -18,28 +18,25 @@ public class Student_Implement implements Student_Dao {
 		boolean b = false;
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = JDBC_Connection.getConnection();
+			con.setAutoCommit(false);
+			
+			String sql2 = "insert into StudentDetails(stdId,stdName,stdBranch) values(?,?,?)";
 
-			String sql1 = "select stdId from StudentDetails where stdId=?";
-			String sql2 = "insert into StudentDetails(stdId,setName,stdBranch) values(?,?,?)";
-
-			pre = con.prepareStatement(sql1);
-			pre.setString(1, std.getStdId());
-
-			int check = pre.executeUpdate();
-			if (check <= 0)
-				b = false;
-			else {
 				pre = con.prepareStatement(sql2);
 				pre.setString(1, std.getStdId());
 				pre.setString(2, std.getStdName());
 				pre.setString(3, std.getStdBranch());
 
-				pre.executeUpdate();
-
-				b = true;
-			}
+				int check = pre.executeUpdate();
+				con.commit();
+				
+				if(check <= 0)
+					b = false;
+				else
+					b = true;
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,19 +54,26 @@ public class Student_Implement implements Student_Dao {
 	}
 
 	@Override
-	public void deleteData(String id) {
+	public boolean deleteData(String id) {
+		boolean b = false;
 		PreparedStatement pre = null;
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = JDBC_Connection.getConnection();
-
+			con.setAutoCommit(false);
 			String sql = "delete from StudentDetails where stdId=?";
 
 			pre = con.prepareStatement(sql);
 			pre.setString(1, id);
 
-			pre.executeUpdate();
+			int check = pre.executeUpdate();
+			con.commit();
+			
+			if(check<=0)
+				b = false;
+			else
+				b = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,22 +86,32 @@ public class Student_Implement implements Student_Dao {
 			}
 
 		}
+		return b;
 	}
 
 	@Override
-	public void updateData(String id) {
+	public boolean updateData(Student d) {
+		boolean b = false;
 		PreparedStatement pre = null;
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = JDBC_Connection.getConnection();
-
+			con.setAutoCommit(false);
 			String sql = "update StudentDetails set stdName=?,stdBranch=? where stdId=?";
 
 			pre = con.prepareStatement(sql);
-			pre.setString(1, id);
+			pre.setString(1, d.getStdName());
+			pre.setString(2, d.getStdBranch());
+			pre.setString(3, d.getStdId());
 
-			pre.executeUpdate();
+			int check= pre.executeUpdate();
+			con.commit();
+			
+			if(check<=0)
+				b = false;
+			else
+				b = true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -110,6 +124,7 @@ public class Student_Implement implements Student_Dao {
 			}
 
 		}
+		return b;
 	}
 
 	@Override
@@ -117,7 +132,7 @@ public class Student_Implement implements Student_Dao {
 		Statement st = null;
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = JDBC_Connection.getConnection();
 
 			String sql = "select stdNo,stdId,stdName,stdBranch from StudentDetails";
@@ -126,14 +141,12 @@ public class Student_Implement implements Student_Dao {
 			ResultSet rt = st.executeQuery(sql);
 
 			while (rt.next()) {
-
 				Student std = new Student();
+				std.setStdNo(rt.getString(1));
 				std.setStdId(rt.getString(2));
 				std.setStdName(rt.getString(3));
 				std.setStdBranch(rt.getString(4));
 				list.add(std);
-				st.close();
-				con.close();
 			}
 
 		} catch (ClassNotFoundException | SQLException e) {

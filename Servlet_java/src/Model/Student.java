@@ -1,10 +1,20 @@
 package Model;
 
 public class Student {
+	private String stdNo;
 	private String stdId;
 	private String stdName;
 	private String stdBranch;
 	
+	public String getStdNo() {
+		return stdNo;
+	}
+	public void setStdNo(String stdNo) {
+		this.stdNo = stdNo;
+	}
+	public Student() {
+		super();
+	}
 	public String getStdId() {
 		return stdId;
 	}

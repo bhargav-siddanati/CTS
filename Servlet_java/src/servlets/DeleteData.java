@@ -28,13 +28,15 @@ public class DeleteData extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		
+		pw = response.getWriter();
 		String st = request.getParameter("id");
 		
+		pw.println("lolol " + st);
+		
 		if(std.deleteData(st))
-			pw.println("Inserted");
+			pw.println("deleted");
 		else
-			pw.println("Not Inserted");
+			pw.println("Not deleted");
 		
 		response.sendRedirect("GetAllDetailsPage.jsp");
 	}

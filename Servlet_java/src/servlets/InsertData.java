@@ -29,6 +29,8 @@ public class InsertData extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		
+		pw = response.getWriter();
+		
 		String id = request.getParameter("id");
 		String name = request.getParameter("sname");
 		String branch = request.getParameter("branch");
@@ -37,11 +39,13 @@ public class InsertData extends HttpServlet {
 		std1.setStdId(id);
 		std1.setStdName(name);
 		std1.setStdBranch(branch);
-		
-		if(std.insertData(std1))
-			pw.println("Inserted");
+		if(std.insertData(std1)) {
+//			pw.print("Inserted");
+			response.sendRedirect("GetAllDetailsPage.jsp");
+		}
 		else
-			pw.println("Not Inserted");
+			pw.print("fuck Off");
+		
 		
 	}
 
